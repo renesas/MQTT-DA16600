@@ -19,7 +19,8 @@
 #include "rm_mqtt_onchip_da16xxx.h"
 #include "r_timer_api.h"
 #include "r_agt.h"
-
+#include "r_dtc.h"
+#include "rm_at_transport_da16xxx_uart.h"
 /* Common macro for FSP header files. There is also a corresponding FSP_FOOTER macro at the end of this file. */
 
 
@@ -74,12 +75,12 @@ typedef struct st_rs_mqtt_client_cfg
 /** MQTT  control structure. */
 typedef struct st_rs_mqtt_client_ctrl
 {
-    size_t                                config_size;                            ///< Config Size
-    uint32_t                              timer_status;                           ///< timer status flag
-    uint32_t                              nwk_status;                             ///< network status flag
-    uint32_t                              mqtt_status;
-    mqtt_onchip_da16xxx_instance_ctrl_t   rs_mqtt_onchip_da16xxx_ctrl;  ///< Pointer to the mqtt onchip DA16600 control structure.
+    size_t                                config_size;                  ///< Config Size
+    uint32_t                              timer_status;                 ///< timer status flag
+    uint32_t                              nwk_status;                   ///< network status flag
+    uint32_t                              mqtt_status;                  ///< mqtt status flag
 
+    mqtt_onchip_da16xxx_instance_ctrl_t   rs_mqtt_onchip_da16xxx_ctrl;  ///< Pointer to the mqtt onchip DA16600 control structure.
     mqtt_onchip_da16xxx_cfg_t             rs_mqtt_onchip_da16xxx_cfg;   ///< Pointer to the mqtt onchip DA16600 config structure.
 
     timer_instance_t                      rs_periodic_timer;            ///< Timer API used to access hardware.
@@ -87,12 +88,12 @@ typedef struct st_rs_mqtt_client_ctrl
     agt_extended_cfg_t                    rs_extended_timer_cfg;
     agt_instance_ctrl_t                   rs_timer_ctrl;
 
-    dtc_instance_ctrl_t                   rs_dtc_instance_ctrl;
-    transfer_info_t                       rs_transfer_info;
-    dtc_extended_cfg_t                    rs_dtc_extended_cfg;
-    transfer_cfg_t                        rs_transfer_cfg;
-    transfer_instance_t                   rs_uart_instance_ctrl;
+    dtc_instance_ctrl_t                   rs_dtc_instance_ctrl[2];
+    transfer_info_t                       rs_transfer_info[2];
+    dtc_extended_cfg_t                    rs_dtc_extended_cfg[2];
+    transfer_cfg_t                        rs_transfer_cfg[2];
 
+    transfer_instance_t                   rs_uart_instance_ctrl[2];
     sci_uart_instance_ctrl_t              rs_sci_uart_instance_ctrl;
     baud_setting_t                        rs_baud_setting;
     sci_uart_extended_cfg_t               rs_sci_uart_extended_cfg;
@@ -121,11 +122,14 @@ fsp_err_t rs_mqtt_client_Subscribe (rs_mqtt_client_ctrl_t * const p_ctrl, mqtt_o
 fsp_err_t rs_mqtt_client_DataSend (rs_mqtt_client_ctrl_t * const p_ctrl, mqtt_onchip_da16xxx_pub_info_t *  p_pub_info);
 fsp_err_t rs_mqtt_client_DataRecv (rs_mqtt_client_ctrl_t * const p_ctrl);
 
-fsp_err_t rs_mqtt_client_ConfigGenerate (rs_mqtt_client_ctrl_t * const p_ctrl, mqtt_onchip_da16xxx_cfg_t *p_mqtt_cfg,
-                                         wifi_da16xxx_cfg_t *g_wifi_da16xxx_cfg, timer_instance_t *g_timer1, transfer_instance_t *g_transfer0,
-                                         uart_instance_t *g_uart0, at_transport_da16xxx_instance_t *g_at_transport_da16xxx);
+fsp_err_t rs_mqtt_client_ConfigGenerate (rs_mqtt_client_ctrl_t *  p_ctrl,  mqtt_onchip_da16xxx_cfg_t *p_mqtt_cfg,
+                                         wifi_da16xxx_cfg_t *p_wifi_da16xxx_cfg, timer_instance_t *p_timer, agt_instance_ctrl_t *p_timer_ctrl,
+                                         transfer_instance_t *p_transfer0, transfer_instance_t *p_transfer1, uart_instance_t *p_uart, sci_uart_instance_ctrl_t *p_uart_ctrl,
+                                         at_transport_da16xxx_instance_t *p_at_transport_da16xxx, at_transport_da16xxx_instance_ctrl_t *p_at_transport_da16xxx_ctrl);
+
 fsp_err_t rs_mqtt_client_ConfigCheck (rs_mqtt_client_ctrl_t * const p_client_ctrl);
 void rs_mqtt_client_GetConfigSize (rs_mqtt_client_ctrl_t * const p_client_ctrl, size_t * size);
+
 
 
 #endif                                 /* RM_MQTT_CLIENT_H */

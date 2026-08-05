@@ -3,6 +3,7 @@
 #include "FreeRTOS.h"
 #include "rs_periodic_mqtt_publisher/demo/user.h"
 #include "rs_periodic_mqtt_publisher/rs_periodic_mqtt_publisher.h"
+#include "rs_periodic_mqtt_publisher/config/rs_periodic_mqtt_publisher_data_fpb_ra6e2.h"
 
 #define CONNECT_TIMEOUT                     (1000)
 #define WIDTH_64                            (64)
@@ -113,38 +114,64 @@ void periodicPublishWithDA16600Entry()
     /* Return configuration size */
     rs_mqtt_client_GetConfigSize(&u_mqtt_client_instance,  &cfg_size);
 
+#if RS_PERIODIC_MQTT_PUBLISH_PRESET_CONFIG_USE
+    /* Copy configurations into SRAM */
+    rs_mqtt_client_ConfigGenerate (&u_mqtt_client_instance, (mqtt_onchip_da16xxx_cfg_t *)&g_mqtt_onchip_da16xxx_cfg_preset,
+                                  (wifi_da16xxx_cfg_t*) &g_wifi_da16xxx_cfg_preset, (timer_instance_t *)&g_timer0_preset,
+                                  (agt_instance_ctrl_t*)&g_timer0_ctrl_preset,
+                                  (transfer_instance_t *)&g_transfer0_preset, (transfer_instance_t *)&g_transfer1_preset,
+                                  (uart_instance_t *)&g_uart9_preset, (sci_uart_instance_ctrl_t *) &g_uart9_ctrl_preset,
+                                  (at_transport_da16xxx_instance_t *)&g_at_transport_da16xxx_preset,
+                                  (at_transport_da16xxx_instance_ctrl_t *) &g_at_transport_da16xxx_ctrl_preset);
+
+
+#else
     /* Copy configurations into SRAM */
     rs_mqtt_client_ConfigGenerate (&u_mqtt_client_instance, (mqtt_onchip_da16xxx_cfg_t *)&g_mqtt_onchip_da16xxx_cfg,
                                   (wifi_da16xxx_cfg_t*) &g_wifi_da16xxx_cfg, (timer_instance_t *)&g_timer0,
-                                  (transfer_instance_t *)&g_transfer0, (uart_instance_t *)&g_uart9,
-                                  (at_transport_da16xxx_instance_t *)&g_at_transport_da16xxx);
+                                  (agt_instance_ctrl_t*)&g_timer0_ctrl,
+                                  (transfer_instance_t *)&g_transfer0, (transfer_instance_t *)&g_transfer1,
+                                  (uart_instance_t *)&g_uart9, (sci_uart_instance_ctrl_t *) &g_uart9_ctrl,
+                                  (at_transport_da16xxx_instance_t *)&g_at_transport_da16xxx,
+                                  (at_transport_da16xxx_instance_ctrl_t *) &g_at_transport_da16xxx_ctrl);
+#endif
 
     /* Check the configurations  */
     err = rs_mqtt_client_ConfigCheck(&u_mqtt_client_instance);
     if (FSP_SUCCESS != err)
     {
         printf("\r\n Config Check failed! \r\n");
-//        __asm("BKPT #0\n");
+        __asm("BKPT #0\n");
     }
 
     /* Turn ON the WiFi and make a connection to the access Point and Obtain the IP address for the Client */
     err = rs_mqtt_client_NetworkInit(&u_mqtt_client_instance, &u_mqtt_client_cfg);
     if (FSP_SUCCESS != err)
     {
-        printf("\r\n Wi-Fi initialization failed! \r\n");
+        printf("\r\n Network initialization failed! \r\n");
         nwk_init_status = (uint32_t)u_mqtt_client_cfg.nwk_init_phase;
 
-        if(RS_NWK_WIFI_NOT_INITIALIZED == nwk_init_status)
+        switch (nwk_init_status)
         {
-
-        }
-        if(RS_NWK_WIFI_TURNED_ON == nwk_init_status)
-        {
-
-        }
-        if(RS_NWK_WIFI_CONNECTED == nwk_init_status)
-        {
-
+            case RS_NWK_WIFI_TURNED_ON:
+            {
+                printf("\r\n Wi-Fi Turned ON but not Initialized! \r\n");
+                break;
+            }
+            case RS_NWK_WIFI_NOT_INITIALIZED:
+            {
+                printf("\r\n Wi-Fi Not initialized! \r\n");
+                break;
+            }
+            case RS_NWK_WIFI_CONNECTED:
+            {
+                printf("\r\n Wi-Fi connected but failed to obtain IP address! \r\n");
+                break;
+            }
+            default:
+            {
+                break;
+            }
         }
         __asm("BKPT #0\n");
     }

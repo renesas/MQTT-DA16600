@@ -1,28 +1,36 @@
 #include "rs_periodic_mqtt_publisher/rs_periodic_mqtt_publisher.h"
 
-fsp_err_t rs_mqtt_client_ConfigGenerate (rs_mqtt_client_ctrl_t * const p_ctrl,  mqtt_onchip_da16xxx_cfg_t *p_mqtt_cfg,
-                                         wifi_da16xxx_cfg_t *p_wifi_da16xxx_cfg, timer_instance_t *p_timer1, transfer_instance_t *p_transfer0,
-                                         uart_instance_t *p_uart0, at_transport_da16xxx_instance_t *p_at_transport_da16xxx)
+
+fsp_err_t rs_mqtt_client_ConfigGenerate (rs_mqtt_client_ctrl_t *  p_ctrl,  mqtt_onchip_da16xxx_cfg_t *p_mqtt_cfg,
+                                         wifi_da16xxx_cfg_t *p_wifi_da16xxx_cfg, timer_instance_t *p_timer, agt_instance_ctrl_t *p_timer_ctrl,
+                                         transfer_instance_t *p_transfer0, transfer_instance_t *p_transfer1, uart_instance_t *p_uart, sci_uart_instance_ctrl_t *p_uart_ctrl,
+                                         at_transport_da16xxx_instance_t *p_at_transport_da16xxx, at_transport_da16xxx_instance_ctrl_t *p_at_transport_da16xxx_ctrl)
+
 {
     fsp_err_t err = FSP_SUCCESS;
     rs_mqtt_client_ctrl_t * p_client_ctrl = (rs_mqtt_client_ctrl_t *) p_ctrl;
+    sci_uart_extended_cfg_t *p_uart_cfg_extend_preset = (sci_uart_extended_cfg_t*)&p_uart->p_cfg->p_extend;
 
     /* Initialize the configurations */
-    memset(&p_client_ctrl->rs_mqtt_onchip_da16xxx_ctrl, 0, sizeof(mqtt_onchip_da16xxx_instance_ctrl_t));
     memset(&p_client_ctrl->rs_mqtt_onchip_da16xxx_cfg, 0, sizeof(mqtt_onchip_da16xxx_cfg_t));
-
-    memset(&p_client_ctrl->rs_wifi_da16xxx_cfg, 0, sizeof(wifi_da16xxx_cfg_t));
 
     memset(&p_client_ctrl->rs_periodic_timer, 0, sizeof(timer_instance_t));
     memset(&p_client_ctrl->rs_periodic_timer_cfg, 0, sizeof(timer_cfg_t));
     memset(&p_client_ctrl->rs_extended_timer_cfg, 0, sizeof(agt_extended_cfg_t));
     memset(&p_client_ctrl->rs_timer_ctrl, 0, sizeof(agt_instance_ctrl_t));
 
-    memset(&p_client_ctrl->rs_uart_instance_ctrl, 0, sizeof(transfer_instance_t));
-    memset(&p_client_ctrl->rs_dtc_instance_ctrl, 0, sizeof(dtc_instance_ctrl_t));
-    memset(&p_client_ctrl->rs_transfer_info, 0, sizeof(transfer_info_t));
-    memset(&p_client_ctrl->rs_dtc_extended_cfg, 0, sizeof(dtc_extended_cfg_t));
-    memset(&p_client_ctrl->rs_transfer_cfg, 0, sizeof(transfer_cfg_t));
+    memset(&p_client_ctrl->rs_dtc_instance_ctrl[0], 0, sizeof(dtc_instance_ctrl_t));
+    memset(&p_client_ctrl->rs_transfer_info[0], 0, sizeof(transfer_info_t));
+    memset(&p_client_ctrl->rs_dtc_extended_cfg[0], 0, sizeof(dtc_extended_cfg_t));
+    memset(&p_client_ctrl->rs_transfer_cfg[0], 0, sizeof(transfer_cfg_t));
+
+    memset(&p_client_ctrl->rs_dtc_instance_ctrl[1], 0, sizeof(dtc_instance_ctrl_t));
+    memset(&p_client_ctrl->rs_transfer_info[1], 0, sizeof(transfer_info_t));
+    memset(&p_client_ctrl->rs_dtc_extended_cfg[1], 0, sizeof(dtc_extended_cfg_t));
+    memset(&p_client_ctrl->rs_transfer_cfg[1], 0, sizeof(transfer_cfg_t));
+
+    memset(&p_client_ctrl->rs_uart_instance_ctrl[0], 0, sizeof(transfer_instance_t));
+    memset(&p_client_ctrl->rs_uart_instance_ctrl[1], 0, sizeof(transfer_instance_t));
 
     memset(&p_client_ctrl->rs_sci_uart_instance_ctrl, 0, sizeof(sci_uart_instance_ctrl_t));
     memset(&p_client_ctrl->rs_baud_setting, 0, sizeof(baud_setting_t));
@@ -30,48 +38,50 @@ fsp_err_t rs_mqtt_client_ConfigGenerate (rs_mqtt_client_ctrl_t * const p_ctrl,  
     memset(&p_client_ctrl->rs_uart_cfg, 0, sizeof(uart_cfg_t));
     memset(&p_client_ctrl->rs_uart_instance, 0, sizeof(uart_instance_t));
 
-    memset(&p_client_ctrl->rs_at_transport_da16xxx_instance_ctrl, 0, sizeof(at_transport_da16xxx_instance_ctrl_t));
     memset(&p_client_ctrl->rs_at_transport_da16xxx_extended_cfg, 0, sizeof(at_transport_da16xxx_extended_cfg_t));
     memset(&p_client_ctrl->rs_at_transport_da16xxx_cfg, 0, sizeof(at_transport_da16xxx_cfg_t));
     memset(&p_client_ctrl->rs_at_transport_da16xxx_instance, 0, sizeof(at_transport_da16xxx_instance_t));
+    memset(&p_client_ctrl->rs_at_transport_da16xxx_instance_ctrl, 0, sizeof(at_transport_da16xxx_instance_ctrl_t));
+
+    memset(&p_client_ctrl->rs_wifi_da16xxx_cfg, 0, sizeof(wifi_da16xxx_cfg_t));
 
     /* Copy the Settings into SRAM */
-    memcpy(&p_client_ctrl->rs_wifi_da16xxx_cfg, p_wifi_da16xxx_cfg, sizeof(wifi_da16xxx_cfg_t));
-
-    memcpy(&p_client_ctrl->rs_at_transport_da16xxx_instance, p_at_transport_da16xxx, sizeof(at_transport_da16xxx_instance_t));
-    memcpy(&p_client_ctrl->rs_at_transport_da16xxx_cfg, p_at_transport_da16xxx->p_cfg, sizeof(at_transport_da16xxx_cfg_t));
-    memcpy(&p_client_ctrl->rs_at_transport_da16xxx_extended_cfg, p_at_transport_da16xxx->p_cfg->p_extend, sizeof(at_transport_da16xxx_extended_cfg_t));
-    memcpy(&p_client_ctrl->rs_at_transport_da16xxx_instance_ctrl, 0, sizeof(at_transport_da16xxx_instance_ctrl_t));
-
-    const uart_instance_t g_uart9 =
-    { .p_ctrl = &g_uart9_ctrl, .p_cfg = &g_uart9_cfg, .p_api = &g_uart_on_sci };
-
-    memcpy(&p_client_ctrl->rs_uart_cfg, p_uart0->p_cfg, sizeof(uart_cfg_t));
-
     memcpy(&p_client_ctrl->rs_mqtt_onchip_da16xxx_cfg, p_mqtt_cfg, sizeof(mqtt_onchip_da16xxx_cfg_t));
 
+    memcpy(&p_client_ctrl->rs_periodic_timer, p_timer, sizeof(timer_instance_t));
+    memcpy(&p_client_ctrl->rs_periodic_timer_cfg, p_timer->p_cfg, sizeof(timer_cfg_t));
+    memcpy(&p_client_ctrl->rs_extended_timer_cfg, p_timer->p_cfg->p_extend, sizeof(agt_extended_cfg_t));
+    memcpy(&p_client_ctrl->rs_timer_ctrl, p_timer_ctrl, sizeof(agt_instance_ctrl_t));
 
-    memcpy(&p_client_ctrl->rs_periodic_timer, p_timer1, sizeof(timer_instance_t));
-    memcpy(&p_client_ctrl->rs_periodic_timer_cfg, p_timer1->p_cfg, sizeof(timer_cfg_t));
-    memcpy(&p_client_ctrl->rs_extended_timer_cfg, p_timer1->p_cfg->p_extend, sizeof(agt_extended_cfg_t));
-    memcpy(&p_client_ctrl->rs_timer_ctrl, p_timer1->p_ctrl, sizeof(agt_instance_ctrl_t));
+    memcpy(&p_client_ctrl->rs_dtc_instance_ctrl[0], p_transfer0, sizeof(dtc_instance_ctrl_t));
+    memcpy(&p_client_ctrl->rs_transfer_info[0], p_transfer0->p_cfg->p_info, sizeof(transfer_info_t));
+    memcpy(&p_client_ctrl->rs_dtc_extended_cfg[0], p_transfer0->p_cfg->p_extend, sizeof(dtc_extended_cfg_t));
+    memcpy(&p_client_ctrl->rs_transfer_cfg[0], p_transfer0->p_cfg, sizeof(transfer_cfg_t));
 
-    memcpy(&p_client_ctrl->rs_uart_instance_ctrl, p_transfer0, sizeof(transfer_instance_t));
-  //  memcpy(&p_client_ctrl->rs_dtc_instance_ctrl, g_transfer0_ctrl, sizeof(dtc_instance_ctrl_t));
-    memcpy(&p_client_ctrl->rs_transfer_info, p_transfer0->p_cfg->p_info, sizeof(transfer_info_t));
-    memcpy(&p_client_ctrl->rs_dtc_extended_cfg, p_transfer0->p_cfg->p_extend, sizeof(dtc_extended_cfg_t));
-    memcpy(&p_client_ctrl->rs_transfer_cfg, p_transfer0->p_cfg, sizeof(transfer_cfg_t));
+    memcpy(&p_client_ctrl->rs_dtc_instance_ctrl[1], p_transfer1, sizeof(dtc_instance_ctrl_t));
+    memcpy(&p_client_ctrl->rs_transfer_info[1], p_transfer1->p_cfg->p_info, sizeof(transfer_info_t));
+    memcpy(&p_client_ctrl->rs_dtc_extended_cfg[1], p_transfer1->p_cfg->p_extend, sizeof(dtc_extended_cfg_t));
+    memcpy(&p_client_ctrl->rs_transfer_cfg[1], p_transfer1->p_cfg, sizeof(transfer_cfg_t));
 
-    memcpy(&p_client_ctrl->rs_sci_uart_extended_cfg, p_uart0->p_cfg->p_extend, sizeof(sci_uart_extended_cfg_t));
-    memcpy(&p_client_ctrl->rs_uart_cfg, p_uart0->p_cfg, sizeof(uart_cfg_t));
+    memcpy(&p_client_ctrl->rs_uart_instance_ctrl[0], p_transfer0, sizeof(transfer_instance_t));
+    memcpy(&p_client_ctrl->rs_uart_instance_ctrl[1], p_transfer1, sizeof(transfer_instance_t));
 
+    memcpy(&p_client_ctrl->rs_sci_uart_instance_ctrl, p_uart_ctrl, sizeof(sci_uart_instance_ctrl_t));
+    memcpy(&p_client_ctrl->rs_baud_setting, p_uart_cfg_extend_preset->p_baud_setting, sizeof(baud_setting_t));
 
+    memcpy(&p_client_ctrl->rs_sci_uart_extended_cfg, p_uart->p_cfg->p_extend, sizeof(sci_uart_extended_cfg_t));
+    memcpy(&p_client_ctrl->rs_uart_cfg, p_uart->p_cfg, sizeof(uart_cfg_t));
+    memcpy(&p_client_ctrl->rs_uart_instance, p_uart, sizeof(uart_instance_t));
 
-    /* Manually assign addresses of the p_ pointers to configurations in SRAM, except driver APIs*/
+    memcpy(&p_client_ctrl->rs_at_transport_da16xxx_instance_ctrl, p_at_transport_da16xxx_ctrl, sizeof(at_transport_da16xxx_instance_ctrl_t));
+    memcpy(&p_client_ctrl->rs_at_transport_da16xxx_cfg, p_at_transport_da16xxx->p_cfg, sizeof(at_transport_da16xxx_cfg_t));
+    memcpy(&p_client_ctrl->rs_at_transport_da16xxx_extended_cfg, p_at_transport_da16xxx->p_cfg->p_extend, sizeof(at_transport_da16xxx_extended_cfg_t));
+    memcpy(&p_client_ctrl->rs_at_transport_da16xxx_instance, p_at_transport_da16xxx, sizeof(at_transport_da16xxx_instance_t));
 
-     /* Return configuration size*/
+    memcpy(&p_client_ctrl->rs_wifi_da16xxx_cfg, p_wifi_da16xxx_cfg, sizeof(wifi_da16xxx_cfg_t));
+
+    /* Return configuration size*/
     p_client_ctrl->config_size = sizeof (rs_mqtt_client_ctrl_t);
-
 
     return err;
 }
@@ -85,41 +95,50 @@ fsp_err_t rs_mqtt_client_ConfigCheck (rs_mqtt_client_ctrl_t * const p_ctrl)
         /* Verify the Configurations */
     if(p_client_ctrl != NULL)
     {
+        if ((!p_client_ctrl->rs_mqtt_onchip_da16xxx_cfg.p_transport_instance) ||(!p_client_ctrl->rs_mqtt_onchip_da16xxx_cfg.p_host_name) ||
+            (!p_client_ctrl->rs_periodic_timer.p_ctrl) ||(!p_client_ctrl->rs_periodic_timer.p_cfg) ||(!p_client_ctrl->rs_periodic_timer.p_api) ||
+        //    (!p_client_ctrl->rs_periodic_timer_cfg.p_extend) || (!p_client_ctrl->rs_timer_ctrl.p_cfg ) || (!p_client_ctrl->rs_timer_ctrl.p_reg  ) ||
+
+            (!p_client_ctrl->rs_transfer_cfg[0].p_info ) || (!p_client_ctrl->rs_transfer_cfg[1].p_info ) ||
+            (!p_client_ctrl->rs_transfer_cfg[0].p_extend ) || (!p_client_ctrl->rs_transfer_cfg[1].p_extend ) ||
+
+            (!p_client_ctrl->rs_uart_instance_ctrl[0].p_api ) || (!p_client_ctrl->rs_uart_instance_ctrl[0].p_cfg ) || (!p_client_ctrl->rs_uart_instance_ctrl[0].p_ctrl ) ||
+            (!p_client_ctrl->rs_uart_instance_ctrl[1].p_api ) || (!p_client_ctrl->rs_uart_instance_ctrl[1].p_cfg ) || (!p_client_ctrl->rs_uart_instance_ctrl[1].p_ctrl ) ||
+//          (!p_client_ctrl->rs_sci_uart_instance_ctrl.p_cfg ) || (!p_client_ctrl->rs_sci_uart_instance_ctrl.p_reg ) ||
+            (!p_client_ctrl->rs_uart_instance_ctrl[0].p_api) || (!p_client_ctrl->rs_uart_instance_ctrl[0].p_cfg) || (!p_client_ctrl->rs_uart_instance_ctrl[0].p_ctrl) ||
+            (!p_client_ctrl->rs_uart_instance_ctrl[1].p_api) || (!p_client_ctrl->rs_uart_instance_ctrl[1].p_cfg) || (!p_client_ctrl->rs_uart_instance_ctrl[1].p_ctrl) ||
+            (!p_client_ctrl->rs_uart_cfg.p_extend) || (!p_client_ctrl->rs_uart_cfg.p_transfer_rx) || (!p_client_ctrl->rs_uart_cfg.p_transfer_tx) ||
+            (!p_client_ctrl->rs_uart_instance.p_api) || (!p_client_ctrl->rs_uart_instance.p_cfg) || (!p_client_ctrl->rs_uart_instance.p_ctrl) ||
+
+//          (!p_client_ctrl->rs_at_transport_da16xxx_instance_ctrl.p_cfg) ||
+            (!p_client_ctrl->rs_at_transport_da16xxx_cfg.p_extend) ||
+            (!p_client_ctrl->rs_at_transport_da16xxx_instance.p_api) || (!p_client_ctrl->rs_at_transport_da16xxx_instance.p_cfg) || (!p_client_ctrl->rs_at_transport_da16xxx_instance.p_ctrl) ||
+
+//          (!p_client_ctrl->rs_at_transport_da16xxx_instance_ctrl.p_cfg) ||
+            (!p_client_ctrl->rs_at_transport_da16xxx_cfg.p_extend) ||
+            (!p_client_ctrl->rs_at_transport_da16xxx_instance.p_api) || (!p_client_ctrl->rs_at_transport_da16xxx_instance.p_cfg) || (!p_client_ctrl->rs_at_transport_da16xxx_instance.p_ctrl ))
+//          (!p_client_ctrl->rs_wifi_da16xxx_cfg.p_extend) || (!p_client_ctrl->rs_wifi_da16xxx_cfg.p_transport_instance))
+
+        {
+            return FSP_ERR_INVALID_POINTER;
+        }
+
         /* Period timer configuration */
         if(p_client_ctrl->rs_periodic_timer_cfg.mode != TIMER_MODE_PERIODIC)
         {
             return FSP_ERR_INVALID_MODE;
         }
 
-        if(p_client_ctrl->rs_at_transport_da16xxx_instance.p_cfg == NULL)
+        if(p_client_ctrl->rs_mqtt_onchip_da16xxx_cfg.mqtt_port != 1883 )
         {
-            return FSP_ERR_INVALID_POINTER;
+             return FSP_ERR_INVALID_DATA;
         }
 
-        if(p_client_ctrl->rs_wifi_da16xxx_cfg.p_transport_instance == NULL)
+        if(p_client_ctrl->rs_mqtt_onchip_da16xxx_cfg.p_host_name == NULL )
         {
-            return FSP_ERR_INVALID_POINTER;
+             return FSP_ERR_INVALID_DATA;
         }
 
-        if(p_client_ctrl->rs_uart_instance_ctrl.p_cfg ==  NULL)
-        {
-            return FSP_ERR_INVALID_POINTER;
-        }
-
-        if(p_client_ctrl->rs_at_transport_da16xxx_instance_ctrl.p_cfg == NULL)
-        {
-            return FSP_ERR_INVALID_POINTER;
-        }
-
-        if(p_client_ctrl->rs_sci_uart_instance_ctrl.p_cfg == NULL)
-        {
-             return FSP_ERR_INVALID_POINTER;
-        }
-
-        if(p_client_ctrl->rs_uart_instance_ctrl.p_cfg == NULL)
-        {
-             return FSP_ERR_INVALID_POINTER;
-        }
     }
     return err;
 }
