@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16.4"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2.elf::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2.elf-Debug-a39d0c3f96e12387b468.json",
+					"name" : "MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2.elf",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "generate_sbd_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-generate_sbd_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2-Debug-6094443ebccb0a67c727.json",
+					"name" : "generate_sbd_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "open_rasc_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-open_rasc_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2-Debug-ea57d08402d33fb83c46.json",
+					"name" : "open_rasc_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/build/Debug",
+		"source" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

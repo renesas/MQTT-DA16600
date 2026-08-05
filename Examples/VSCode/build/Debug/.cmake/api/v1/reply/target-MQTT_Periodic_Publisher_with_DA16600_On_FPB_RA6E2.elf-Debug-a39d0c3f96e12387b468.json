@@ -1,0 +1,1109 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2.elf"
+		}
+	],
+	"backtrace" : 3,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"include",
+			"target_link_options",
+			"target_link_directories",
+			"target_compile_options",
+			"target_compile_definitions",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"cmake/GeneratedSrc.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 56,
+				"parent" : 0
+			},
+			{
+				"file" : 0,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 80,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 95,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 120,
+				"parent" : 2
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 83,
+				"parent" : 2
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 91,
+				"parent" : 2
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 98,
+				"parent" : 2
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 100,
+				"parent" : 2
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-O2"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-mfloat-abi=hard"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "--target=arm-none-eabi"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-mcpu=cortex-m33"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-mfpu=fpv5-sp-d16"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wunused"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wuninitialized"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wextra"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wmissing-declarations"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wconversion"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wpointer-arith"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wshadow"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Waggregate-return"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wno-parentheses-equality"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wfloat-equal"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-fshort-enums"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-fno-unroll-loops"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-fmessage-length=0"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-fsigned-char"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-ffunction-sections"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-fdata-sections"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-mthumb"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-mlittle-endian"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-std=c99"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-MP"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Os"
+				},
+				{
+					"fragment" : "-w"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 8,
+					"define" : "_RA_CORE=CM33"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "_RA_ORDINAL=1"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "_RENESAS_RA_"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/arm/CMSIS_6/CMSIS/Core/Include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/aws/FreeRTOS/FreeRTOS/Source/include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/inc"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/inc/api"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/inc/instances"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/src/rm_at_transport_da16xxx_uart"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/src/rm_freertos_port"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/src/rm_mqtt_onchip_da16xxx"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/src/rm_wifi_da16xxx"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra_cfg/aws"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra_cfg/fsp_cfg"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra_cfg/fsp_cfg/bsp"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra_gen"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/src"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/build/Debug"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5
+			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-O2"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-mfloat-abi=hard"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "--target=arm-none-eabi"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-mcpu=cortex-m33"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-mfpu=fpv5-sp-d16"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wunused"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wuninitialized"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wextra"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wmissing-declarations"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wconversion"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wpointer-arith"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wshadow"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Waggregate-return"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wno-parentheses-equality"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Wfloat-equal"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-fshort-enums"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-fno-unroll-loops"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-fmessage-length=0"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-fsigned-char"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-ffunction-sections"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-fdata-sections"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-mthumb"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-mlittle-endian"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-std=c99"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-MP"
+				},
+				{
+					"backtrace" : 7,
+					"fragment" : "-Os"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 8,
+					"define" : "_RA_CORE=CM33"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "_RA_ORDINAL=1"
+				},
+				{
+					"backtrace" : 8,
+					"define" : "_RENESAS_RA_"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/arm/CMSIS_6/CMSIS/Core/Include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/aws/FreeRTOS/FreeRTOS/Source/include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/inc"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/inc/api"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/inc/instances"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/src/rm_at_transport_da16xxx_uart"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/src/rm_freertos_port"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/src/rm_mqtt_onchip_da16xxx"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra/fsp/src/rm_wifi_da16xxx"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra_cfg/aws"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra_cfg/fsp_cfg"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra_cfg/fsp_cfg/bsp"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/ra_gen"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/src"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/build/Debug"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49
+			]
+		}
+	],
+	"id" : "MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2.elf::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-mfloat-abi=hard",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "--target=arm-none-eabi",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-mcpu=cortex-m33",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-mfpu=fpv5-sp-d16",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wunused",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wuninitialized",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wall",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wextra",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wmissing-declarations",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wconversion",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wpointer-arith",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wshadow",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Waggregate-return",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wno-parentheses-equality",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wfloat-equal",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-fshort-enums",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-fno-unroll-loops",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-fmessage-length=0",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-fsigned-char",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-ffunction-sections",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-fdata-sections",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-mthumb",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-mlittle-endian",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-T",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "script/fsp.lld",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wl,-Map=C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/build/Debug/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2.map",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wl,--gc-sections",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wl,--cref",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wl,--icf=none",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-o",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "C:/WS/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/build/Debug/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2.elf",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-Wl,-z,norelro",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "-LC:\\WS\\MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2",
+				"role" : "libraryPath"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "-LC:\\WS\\MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2\\script",
+				"role" : "libraryPath"
+			}
+		],
+		"language" : "C"
+	},
+	"name" : "MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2.elf",
+	"nameOnDisk" : "MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2.elf",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40,
+				41,
+				42,
+				43,
+				44,
+				45,
+				46,
+				47,
+				48,
+				49
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "ra/aws/FreeRTOS/FreeRTOS/Source/event_groups.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "ra/aws/FreeRTOS/FreeRTOS/Source/list.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "ra/aws/FreeRTOS/FreeRTOS/Source/queue.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "ra/aws/FreeRTOS/FreeRTOS/Source/stream_buffer.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "ra/aws/FreeRTOS/FreeRTOS/Source/tasks.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 0,
+			"path" : "ra/aws/FreeRTOS/FreeRTOS/Source/timers.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/board/ra6e2_fpb/board_init.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/board/ra6e2_fpb/board_leds.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/cmsis/Device/RENESAS/Source/startup.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/cmsis/Device/RENESAS/Source/system.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_clocks.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_common.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_delay.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_group_irq.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_guard.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_io.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_ipc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_irq.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_macl.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_ospi_b.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_register_protection.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_sbrk.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_sdram.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/all/bsp_security.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/bsp/mcu/ra6e2/bsp_linker.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/r_agt/r_agt.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/r_dtc/r_dtc.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/r_ioport/r_ioport.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/r_sci_uart/r_sci_uart.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/rm_at_transport_da16xxx_uart/rm_at_transport_da16xxx_uart.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/rm_comms_lock/rm_comms_lock.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/rm_comms_uart/rm_comms_uart.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/rm_freertos_port/port.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/rm_mqtt_onchip_da16xxx/rm_mqtt_onchip_da16xxx.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/rm_wifi_da16xxx/rm_wifi_api_da16xxx.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra/fsp/src/rm_wifi_da16xxx/rm_wifi_da16xxx.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra_gen/common_data.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra_gen/hal_data.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra_gen/main.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra_gen/main_thread.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra_gen/pin_data.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "ra_gen/vector_data.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "src/console/r_byteq.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "src/console/syscalls_picolib_stdio_to_uart.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "src/hal_warmstart.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "src/main_thread_entry.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "src/rs_periodic_mqtt_publisher/config/rs_periodic_mqtt_publisher_config.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "src/rs_periodic_mqtt_publisher/config/rs_periodic_mqtt_publisher_data_fpb_ra6e2.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "src/rs_periodic_mqtt_publisher/demo/rs_periodic_mqtt_publisher_demo.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 3,
+			"compileGroupIndex" : 1,
+			"path" : "src/rs_periodic_mqtt_publisher/rs_periodic_mqtt_publisher.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}
