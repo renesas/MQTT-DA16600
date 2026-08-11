@@ -208,7 +208,7 @@ void periodicPublishWithDA16600Entry()
         printf("\r\nMQTT Connection failed!\r\n");
         __asm("BKPT #0\n");
     }
-    printf("\r\nMQTT Connection Successful and ready for periodic publishing!\r\n");
+    printf("\r\nMQTT client is successfully connected to \"%s\"\nand ready for periodic publishing!\r\n", u_mqtt_client_instance.rs_mqtt_onchip_da16xxx_cfg.p_host_name);
 
 
     while (1)
