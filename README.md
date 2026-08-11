@@ -1,7 +1,7 @@
 # RS Periodic MQTT Publisher
 
 The Periodic MQTT Publisher Project showcases communication between a Renesas RA MCU and the DA16600 Wi-Fi module.
-The system connects to a configured Wi-Fi network and establishes access to the internet.  It then creates a connection to an MQTT broker using the MQTT protocol.  The application periodically publishes messages to predefined MQTT topics.  These messages can represent device status, telemetry, or diagnostic information.  Published data is received and displayed on the MQTT broker for verification.  The project demonstrates reliable device-to-cloud communication.  It serves as a reference design for IoT connectivity solutions.  
+The system connects to a configured Wi-Fi network and establishes access to the internet.  It then creates a connection to an MQTT broker using the MQTT protocol.  The application periodically publishes messages to predefined MQTT topics. Published data is received and displayed on the MQTT broker for verification.  The project demonstrates reliable device-to-cloud communication.  It serves as a reference design for IoT connectivity solutions.  
 
 
 # Project Structure
