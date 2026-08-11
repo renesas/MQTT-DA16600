@@ -20,13 +20,13 @@
 
 # 1. Introduction
 
-The RS Periodic MQTT Publisher example demonstrates how a Renesas RA MCU interfaces with the DA16600 Wi‑Fi module to establish wireless network connectivity, connects to an MQTT broker, and periodically publish application data to a configured MQTT topic.
+The RS Periodic MQTT Publisher example demonstrates how a Renesas RA MCU interfaces with the DA16600 Wi‑Fi module to establish wireless network connectivity, connects to an MQTT broker, and periodically publishes application data to a configured MQTT topic.
 
 The MQTT client connects to a configured MQTT broker, which can be either a public broker for evaluation purposes or a private broker deployed in a production environment.
 
 After a successful MQTT connection is established, the application begins periodically publishing data to the configured MQTT topic. In this example, simulated temperature sensor values are generated and transmitted as MQTT messages. The published data can be easily modified to represent actual sensor readings, device status, telemetry information, or application-specific payloads.
 
-The application is designed using a FreeRTOS event-driven architecture, which eliminates the need for continuous polling and improves CPU efficiency. A AGT timer which generates periodic timeout events that are posted to the application task. Upon receiving a timer event, the application prepares the MQTT payload and initiates a publish operation through the MQTT client. This event-driven mechanism allows the processor to remain available for other application tasks while maintaining deterministic publishing intervals.
+The application is designed using a FreeRTOS event-driven architecture, which eliminates the need for continuous polling and improves CPU efficiency. An AGT timer generates periodic timeout events that are posted to the application task. Upon receiving a timer event, the application prepares the MQTT payload and initiates a publish operation through the MQTT client. This event-driven mechanism allows the processor to remain available for other application tasks while maintaining deterministic publishing intervals.
 
 By default, the periodic publish timer is configured for a 10-second interval, causing telemetry data to be sent every 10 seconds. However, this interval can be adjusted according to application requirements, allowing users to increase or decrease the publishing frequency based on network bandwidth constraints, power consumption targets, or data reporting needs.
 
@@ -47,7 +47,7 @@ This example provides a foundational reference for developing IoT applications t
 | Hardware Item | Description |
 |---------------|-------------|
 | Reference Boards | FPB‑RA6E2 |
-| Wi‑Fi Module | (Part Number: US159-DA16200MEVZ)(SDK v3.2.8.1)     Reference Link --> (https://www.renesas.com/en/design-resources/boards-kits/us159-da16600evz#overview) |
+| Wi‑Fi Module | (Part Number: US159-DA16600EVZ)(SDK v3.2.8.1)     Reference Link --> (https://www.renesas.com/en/design-resources/boards-kits/us159-da16600evz#overview) |
 | Network Connectivity Device| Wi‑Fi Access Point or Wi-Fi Router with internet connectivity |
 | USB Cable| Micro USB cable for programming, debugging and observing Project operations on Console |
 
@@ -64,8 +64,8 @@ For SDK update instructions, please refer to Section 5, 6, and 7 in the provided
 
 ### Hardware Connections
 * Connect the RA board (FPB‑RA6E2) USB debug port to the host PC via a USB cable.
-* Connect the Wi-Fi Pmod™(US159-DA16200EVZ) to RA board PMOD1 port. Ensure that the pin1 of the PMOD is connected to Pin 1 of the connector.
-* Connect a wire between J1-10 and J1-5 to accomodate UART0 for Virtual console.
+* Connect the Wi-Fi Pmod™(US159-DA16600EVZ) to RA board PMOD1 port. Ensure that the pin1 of the PMOD is connected to Pin 1 of the connector.
+* Connect a wire between J1-10 and J1-5 to accommodate UART0 for the virtual console.
 
 ### Connecting and Running a Broker 
 
@@ -90,7 +90,10 @@ For SDK update instructions, please refer to Section 5, 6, and 7 in the provided
 
 *  This test client can be used to verify MQTT broker connectivity, validate topic subscriptions, and confirm message publishing and reception functionality. Now the MQTT Broker is ready to receive the published messages from the RA Board. 
 
-  Note: Before connecting the RA Board, ensure that the MQTT broker is running and reachable from the network.
+  Note: Before connecting the RA Board, ensure that the MQTT broker is running and reachable from the network. 
+  Note: Public MQTT brokers are intended only for evaluation purposes. For production deployments use a private broker and enable TLS.
+2
+For production deployments use a private broker and enable TLS.
 
 # 3. Importing and Building Application Project
 1. Import the project into e2studio using File → Import → Existing Projects into Workspace and select the MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2 project. 
@@ -103,8 +106,8 @@ For SDK update instructions, please refer to Section 5, 6, and 7 in the provided
 #### Example
  
 ```c
-#define WIFI_SSID "RenesasLab"
-#define WIFI_PWD "@Renesas123&3"
+#define WIFI_SSID "YOUR_WIFI_SSID"
+#define WIFI_PWD "YOUR_WIFI_PASSWORD"
 ```
  
 > **Note:** Ensure that `WIFI_SSID` and `WIFI_PWD` are set to the correct credentials for your Wi-Fi network.
@@ -330,7 +333,7 @@ The following table identifies which files are reusable Module layer code and wh
 |---|---|---|---|
 | **Module Layer** | `src/rs_periodic_mqtt_publisher/rs_periodic_mqtt_publisher.c` | Lifecycle state machine; all public function entry points|
 | **Module Layer** | `src/rs_periodic_mqtt_publisher/rs_periodic_mqtt_publisher.h` | Public interface header — all public function prototypes | Include directly; do not modify |
-| **Module Layer** | `src/rs_periodic_mqtt_publisher/config/rs_periodic_mqtt_publisher_config.c/h` | Public functions to check module configuratutions|
+| **Module Layer** | `src/rs_periodic_mqtt_publisher/config/rs_periodic_mqtt_publisher_config.c/h` | Public functions to check module configurations|
 | **Preset Config** | `src/rs_periodic_mqtt_publisher/config/rs_periodic_mqtt_publisher_data_fpb_ra6e2.c/.h` | Pre-built HAL instance definitions for FPB-RA6E2; aliased to FSP-generated instances where appropriate | Reference only — do not edit; for custom boards, use the FSP Stack Configurator instead
 | **Reference App** | `src/demo/rs_periodic_mqtt_publisher_demo.c` | Full demonstration; Displays Info and error messages|
 
@@ -768,7 +771,7 @@ static fsp_err_t da16xxx_optional_init(rs_mqtt_client_ctrl_t * p_ctrl);
 
 Performs optional DA16600-specific MQTT configuration before establishing the MQTT connection. This code is at the application level to send the AT command to Wi-Fi Module to configure the module to non TLS mode as the demo requires TLS to be disabled because it uses a non-secure MQTT connection. By default, DA16600 modules have MQTT TLS enabled. 
 
-Note: Users can also use this code as reference to configure the Wi-Fi module for any desired configuration as required by the application via applcation level AT commands. 
+Note: Users can also use this code as reference to configure the Wi-Fi module for any desired configuration as required by the application via application-level AT commands. 
 
 ### Parameters
 
@@ -814,7 +817,7 @@ However, the following FSP components must still be enabled in the **FSP Compone
 - rm_freertos_port
 - rm_wifi_api
 
-In addition, a AGT timer interrupt, UART Transmit, Receive related, interrupt event must be added manually:
+In addition, an AGT timer interrupt, UART Transmit, Receive related, interrupt event must be added manually:
 
 ### FSP Interrupt Configuration Procedure
 
