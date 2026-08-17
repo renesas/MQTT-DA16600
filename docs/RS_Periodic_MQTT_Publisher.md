@@ -64,7 +64,7 @@ For SDK update instructions, please refer to Section 5, 6, and 7 in the provided
 
 ### Hardware Connections
 * Connect the RA board (FPB‑RA6E2) USB debug port to the host PC via a USB cable.
-* Connect the Wi-Fi Pmod™(US159-DA16600EVZ) to RA board PMOD1 port. Ensure that the pin1 of the PMOD is connected to Pin 1 of the connector.
+* Connect the Wi-Fi Pmod™(US159-DA16600EVZ) to the RA board PMOD1 port. Ensure that the pin1 of the PMOD is connected to Pin 1 of the connector.
 * Connect a wire between J1-10 and J1-5 to accommodate UART0 for the virtual console.
 
 ### Connecting and Running a Broker 

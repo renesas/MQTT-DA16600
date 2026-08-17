@@ -143,4 +143,8 @@ void rs_mqtt_client_GetConfigSize (rs_mqtt_client_ctrl_t * const p_ctrl, size_t 
     {
        *cfg_size = sizeof (rs_mqtt_client_ctrl_t);
     }
+    else
+    {
+        *cfg_size = 0;
+    }
 }

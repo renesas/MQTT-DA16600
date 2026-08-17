@@ -48,7 +48,7 @@ static float generate_random_float(float min, float max);
 
 float publish_data = { 0 };
 char pub_buf[WIDTH_64] = { 0 };
-static int counter = 0;
+static volatile uint32_t counter = 0;
 
 EventGroupHandle_t eventGroup;
 EventBits_t bits;
@@ -113,6 +113,16 @@ void periodicPublishWithDA16600Entry()
 
     /* Return configuration size */
     rs_mqtt_client_GetConfigSize(&u_mqtt_client_instance,  &cfg_size);
+
+    if(!cfg_size)
+    {
+        printf("\r\n Failed to get the config Size! \r\n");
+        __asm("BKPT #0\n");
+    }
+    else
+    {
+        printf("\r\n Config size = %d bytes \r\n",cfg_size);
+    }
 
 #if RS_PERIODIC_MQTT_PUBLISH_PRESET_CONFIG_USE
     /* Copy configurations into SRAM */
@@ -197,7 +207,7 @@ void periodicPublishWithDA16600Entry()
     err = da16xxx_optional_init(&u_mqtt_client_instance);
     if (FSP_SUCCESS != err)
     {
-       printf("\r\nDisbaling the TLS mode failed!\r\n");
+       printf("\r\nDisbaling TLS mode failed!\r\n");
        __asm("BKPT #0\n");
     }
     printf("\r\nMQTT initialization Successful and starting the connection!\r\n");
@@ -230,7 +240,14 @@ void periodicPublishWithDA16600Entry()
             pubTopics[0].payload_length = strlen(pubTopics[0].p_payload);
 
             err = rs_mqtt_client_DataSend(&u_mqtt_client_instance, &pubTopics[0]);
-            printf("Published Temperature Data = %f \r\n",publish_data);
+            if(FSP_SUCCESS != err)
+            {
+                printf("Data Send Failure for Iteration %d = %f \r\n",counter,publish_data);
+            }
+            else
+            {
+                printf("Published Temperature Data = %f \r\n",publish_data);
+            }
             /* Handle event */
             xEventGroupClearBits(g_periodic_event_group, PERIODIC_TIMER_EVENT);
 
@@ -251,7 +268,7 @@ void mqtt0_callback(mqtt_onchip_da16xxx_callback_args_t * p_args)
     if (NULL != p_args)
     {
         /* In this Demo there is no Topic subscribed, hence no processing logic here */
-        ;
+        (void)p_args;
     }
 }
 

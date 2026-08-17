@@ -175,13 +175,22 @@ fsp_err_t rs_mqtt_client_Subscribe (rs_mqtt_client_ctrl_t * const p_ctrl, mqtt_o
     fsp_err_t err = FSP_SUCCESS;
 
     FSP_ERROR_RETURN(NULL != p_ctrl, FSP_ERR_INVALID_POINTER);
+    FSP_ERROR_RETURN(NULL != p_sub_info, FSP_ERR_INVALID_POINTER);
+    FSP_ERROR_RETURN(subscription_count > 0, FSP_ERR_ASSERTION);
 
     rs_mqtt_client_ctrl_t * p_client_ctrl = (rs_mqtt_client_ctrl_t *) p_ctrl;
 
     mqtt_onchip_da16xxx_instance_ctrl_t * p_mqtt_da16xxx_ctrl = &p_client_ctrl->rs_mqtt_onchip_da16xxx_ctrl;
     mqtt_onchip_da16xxx_sub_info_t *p_subTopics =  (mqtt_onchip_da16xxx_sub_info_t *)p_sub_info;
 
-    err = RM_MQTT_DA16XXX_Subscribe(p_mqtt_da16xxx_ctrl, p_subTopics, subscription_count);
+    if(p_client_ctrl->mqtt_status ==  RS_MQTT_CLIENT_CONNECTION_ACTIVE)
+    {
+        err = RM_MQTT_DA16XXX_Subscribe(p_mqtt_da16xxx_ctrl, p_subTopics, subscription_count);
+    }
+    else
+    {
+        err = FSP_ERR_NOT_ENABLED;
+    }
     FSP_ERROR_RETURN(FSP_SUCCESS == err, err);
 
     return err;
