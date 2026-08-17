@@ -1,49 +1,39 @@
-# This file is a template, and might need editing before it works on your project.
-# This is a sample GitLab CI/CD configuration file that should run without any modifications.
-# It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
-# it uses echo commands to simulate the pipeline execution.
-#
-# A pipeline is composed of independent jobs that run scripts, grouped into stages.
-# Stages run in sequential order, but jobs within stages run in parallel.
-#
-# For more information, see: https://docs.gitlab.com/ee/ci/yaml/#stages
-#
-# You can copy and paste this template into a new `.gitlab-ci.yml` file.
-# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
-#
-# To contribute improvements to CI/CD templates, please follow the Development guide at:
-# https://docs.gitlab.com/development/cicd/templates/
-# This specific template is located at:
-# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
-
-stages:          # List of stages for jobs, and their order of execution
+stages:
+  - sync
   - build
   - test
-  - deploy
-
-build-job:       # This job runs in the build stage, which runs first.
+sync_rs_mqtt_periodic_publisher:
+  stage: sync
+  image: python:3.11-slim
+  script:
+    - echo "start sync job"
+    - python script/sync_check.py  
+build_renesas_ra:
   stage: build
+  tags:
+    - mqtt_periodic_publisher_Build_Test   # Registered runner tag
   script:
-    - echo "Compiling the code..."
-    - echo "Compile complete."
-
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
+    - echo "the project directory is - $CI_PROJECT_DIR"
+    - echo "the builb directory is - $CI_BUILDS_DIR"
+    - echo "Change directory to the project directory..."
+    - cd $CI_PROJECT_DIR\test\Unity_Test_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2
+    - echo "Starting CMake build..."
+    - python build.py    
+  # Keep build files:
+  artifacts:
+    expire_in: 3 day
+    paths:
+      - test/Unity_Test_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/build/Debug    
+test_fpb_board:
+  stage: test
+  tags:
+    - mqtt_periodic_publisher_Build_Test   # Registered runner tag
+  before_script:
+    - pip install pyserial junit-xml  # Added junit-xml library
   script:
-    - echo "Running unit tests... This will take about 60 seconds."
-    - sleep 60
-    - echo "Code coverage is 90%"
-
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
-  script:
-    - echo "Linting code... This will take about 10 seconds."
-    - sleep 10
-    - echo "No lint issues found."
-
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  environment: production
-  script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
+    - python script/run_tests.py
+  artifacts:
+    name: "uart-test-results"
+    when: always
+    reports:
+     junit: junit_report.xml  # Enables the native GitLab Tests tab
