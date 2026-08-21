@@ -134,6 +134,10 @@ fsp_err_t rs_mqtt_client_ConfigCheck (rs_mqtt_client_ctrl_t * const p_ctrl)
         }
 
     }
+    else
+    {
+        err = FSP_ERR_INVALID_POINTER;
+    }
     return err;
 }
 

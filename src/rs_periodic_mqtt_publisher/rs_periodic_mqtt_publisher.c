@@ -55,7 +55,7 @@ fsp_err_t rs_mqtt_client_NetworkInit (rs_mqtt_client_ctrl_t * const p_ctrl, rs_m
     WIFINetworkParams_t  *p_net_params = &p_client_cfg->net_params;
     WIFIIPConfiguration_t  *p_ipconfig = &p_client_cfg->ipconfig;
     p_client_ctrl->nwk_status = RS_NWK_NOT_INITIALIZED;
-    p_cfg->nwk_init_phase = RS_NWK_WIFI_NOT_INITIALIZED;
+    p_client_cfg->nwk_init_phase = RS_NWK_WIFI_NOT_INITIALIZED;
 
     /* Open connection to the Wifi Module */
     err = rm_wifi_da16xxx_open(&p_client_ctrl->rs_wifi_da16xxx_cfg);
@@ -63,7 +63,7 @@ fsp_err_t rs_mqtt_client_NetworkInit (rs_mqtt_client_ctrl_t * const p_ctrl, rs_m
     {
         FSP_ERROR_RETURN(FSP_SUCCESS == err, err);
     }
-    p_cfg->nwk_init_phase = RS_NWK_WIFI_TURNED_ON;
+    p_client_cfg->nwk_init_phase = RS_NWK_WIFI_TURNED_ON;
 
     /* Connect to the Access Point */
     wifi_err = WIFI_ConnectAP(p_net_params);
@@ -71,13 +71,13 @@ fsp_err_t rs_mqtt_client_NetworkInit (rs_mqtt_client_ctrl_t * const p_ctrl, rs_m
     {
         FSP_ERROR_RETURN(eWiFiSuccess == wifi_err, (fsp_err_t)wifi_err);
     }
-    p_cfg->nwk_init_phase = RS_NWK_WIFI_CONNECTED;
+    p_client_cfg->nwk_init_phase = RS_NWK_WIFI_CONNECTED;
 
     if (WIFI_GetIPInfo(p_ipconfig) != eWiFiSuccess)
     {
         FSP_ERROR_RETURN(eWiFiSuccess == wifi_err, (fsp_err_t)wifi_err);
     }
-    p_cfg->nwk_init_phase = RS_NWK_IP_INITIALIZED;
+    p_client_cfg->nwk_init_phase = RS_NWK_IP_INITIALIZED;
     p_client_ctrl->nwk_status = RS_NWK_INITIALIZED;
     return err;
 }

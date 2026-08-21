@@ -143,8 +143,8 @@
       <configSetting altId="p500.gpio_mode.gpio_mode_in" configurationId="p500.gpio_mode"/>
       <configSetting altId="sci0.rxd0.p410" configurationId="sci0.rxd0" isUsedByDriver="true" peripheral="SCI0"/>
       <configSetting altId="sci0.txd0.p411" configurationId="sci0.txd0" isUsedByDriver="true" peripheral="SCI0"/>
-      <configSetting altId="sci9.rxd9.p110" configurationId="sci9.rxd9" peripheral="SCI9"/>
-      <configSetting altId="sci9.txd9.p109" configurationId="sci9.txd9" peripheral="SCI9"/>
+      <configSetting altId="sci9.rxd9.p110" configurationId="sci9.rxd9" isUsedByDriver="true" peripheral="SCI9"/>
+      <configSetting altId="sci9.txd9.p109" configurationId="sci9.txd9" isUsedByDriver="true" peripheral="SCI9"/>
     </pincfg>
   </raPinConfiguration>
 </raConfiguration>

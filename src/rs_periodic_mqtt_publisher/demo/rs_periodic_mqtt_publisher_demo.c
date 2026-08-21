@@ -207,7 +207,7 @@ void periodicPublishWithDA16600Entry()
     err = da16xxx_optional_init(&u_mqtt_client_instance);
     if (FSP_SUCCESS != err)
     {
-       printf("\r\nDisbaling TLS mode failed!\r\n");
+       printf("\r\nDisabling TLS mode failed!\r\n");
        __asm("BKPT #0\n");
     }
     printf("\r\nMQTT initialization Successful and starting the connection!\r\n");

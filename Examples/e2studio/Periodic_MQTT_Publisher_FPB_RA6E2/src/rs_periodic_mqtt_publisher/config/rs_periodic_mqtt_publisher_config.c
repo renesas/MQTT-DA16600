@@ -97,27 +97,21 @@ fsp_err_t rs_mqtt_client_ConfigCheck (rs_mqtt_client_ctrl_t * const p_ctrl)
     {
         if ((!p_client_ctrl->rs_mqtt_onchip_da16xxx_cfg.p_transport_instance) ||(!p_client_ctrl->rs_mqtt_onchip_da16xxx_cfg.p_host_name) ||
             (!p_client_ctrl->rs_periodic_timer.p_ctrl) ||(!p_client_ctrl->rs_periodic_timer.p_cfg) ||(!p_client_ctrl->rs_periodic_timer.p_api) ||
-        //    (!p_client_ctrl->rs_periodic_timer_cfg.p_extend) || (!p_client_ctrl->rs_timer_ctrl.p_cfg ) || (!p_client_ctrl->rs_timer_ctrl.p_reg  ) ||
-
             (!p_client_ctrl->rs_transfer_cfg[0].p_info ) || (!p_client_ctrl->rs_transfer_cfg[1].p_info ) ||
             (!p_client_ctrl->rs_transfer_cfg[0].p_extend ) || (!p_client_ctrl->rs_transfer_cfg[1].p_extend ) ||
 
             (!p_client_ctrl->rs_uart_instance_ctrl[0].p_api ) || (!p_client_ctrl->rs_uart_instance_ctrl[0].p_cfg ) || (!p_client_ctrl->rs_uart_instance_ctrl[0].p_ctrl ) ||
             (!p_client_ctrl->rs_uart_instance_ctrl[1].p_api ) || (!p_client_ctrl->rs_uart_instance_ctrl[1].p_cfg ) || (!p_client_ctrl->rs_uart_instance_ctrl[1].p_ctrl ) ||
-//          (!p_client_ctrl->rs_sci_uart_instance_ctrl.p_cfg ) || (!p_client_ctrl->rs_sci_uart_instance_ctrl.p_reg ) ||
             (!p_client_ctrl->rs_uart_instance_ctrl[0].p_api) || (!p_client_ctrl->rs_uart_instance_ctrl[0].p_cfg) || (!p_client_ctrl->rs_uart_instance_ctrl[0].p_ctrl) ||
             (!p_client_ctrl->rs_uart_instance_ctrl[1].p_api) || (!p_client_ctrl->rs_uart_instance_ctrl[1].p_cfg) || (!p_client_ctrl->rs_uart_instance_ctrl[1].p_ctrl) ||
             (!p_client_ctrl->rs_uart_cfg.p_extend) || (!p_client_ctrl->rs_uart_cfg.p_transfer_rx) || (!p_client_ctrl->rs_uart_cfg.p_transfer_tx) ||
             (!p_client_ctrl->rs_uart_instance.p_api) || (!p_client_ctrl->rs_uart_instance.p_cfg) || (!p_client_ctrl->rs_uart_instance.p_ctrl) ||
 
-//          (!p_client_ctrl->rs_at_transport_da16xxx_instance_ctrl.p_cfg) ||
             (!p_client_ctrl->rs_at_transport_da16xxx_cfg.p_extend) ||
             (!p_client_ctrl->rs_at_transport_da16xxx_instance.p_api) || (!p_client_ctrl->rs_at_transport_da16xxx_instance.p_cfg) || (!p_client_ctrl->rs_at_transport_da16xxx_instance.p_ctrl) ||
 
-//          (!p_client_ctrl->rs_at_transport_da16xxx_instance_ctrl.p_cfg) ||
             (!p_client_ctrl->rs_at_transport_da16xxx_cfg.p_extend) ||
             (!p_client_ctrl->rs_at_transport_da16xxx_instance.p_api) || (!p_client_ctrl->rs_at_transport_da16xxx_instance.p_cfg) || (!p_client_ctrl->rs_at_transport_da16xxx_instance.p_ctrl ))
-//          (!p_client_ctrl->rs_wifi_da16xxx_cfg.p_extend) || (!p_client_ctrl->rs_wifi_da16xxx_cfg.p_transport_instance))
 
         {
             return FSP_ERR_INVALID_POINTER;
@@ -140,6 +134,10 @@ fsp_err_t rs_mqtt_client_ConfigCheck (rs_mqtt_client_ctrl_t * const p_ctrl)
         }
 
     }
+    else
+    {
+        err = FSP_ERR_INVALID_POINTER;
+    }
     return err;
 }
 
@@ -148,5 +146,9 @@ void rs_mqtt_client_GetConfigSize (rs_mqtt_client_ctrl_t * const p_ctrl, size_t 
     if(NULL != p_ctrl)
     {
        *cfg_size = sizeof (rs_mqtt_client_ctrl_t);
+    }
+    else
+    {
+        *cfg_size = 0;
     }
 }
