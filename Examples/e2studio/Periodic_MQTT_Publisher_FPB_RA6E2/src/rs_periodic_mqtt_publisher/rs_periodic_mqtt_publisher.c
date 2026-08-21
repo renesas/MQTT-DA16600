@@ -73,7 +73,8 @@ fsp_err_t rs_mqtt_client_NetworkInit (rs_mqtt_client_ctrl_t * const p_ctrl, rs_m
     }
     p_client_cfg->nwk_init_phase = RS_NWK_WIFI_CONNECTED;
 
-    if (WIFI_GetIPInfo(p_ipconfig) != eWiFiSuccess)
+    wifi_err = WIFI_GetIPInfo(p_ipconfig);
+    if (eWiFiSuccess != wifi_err)
     {
         FSP_ERROR_RETURN(eWiFiSuccess == wifi_err, (fsp_err_t)wifi_err);
     }
