@@ -6,8 +6,8 @@ stages:
 #  stage: sync
 #  image: python:3.11-slim
 #  script:
-#    - echo "start sync job"
-#    - python script/sync_check.py  
+#    - echo "start sync job" 
+#    - python script/sync_check.py   
 build_renesas_ra:
   stage: build
   tags:
