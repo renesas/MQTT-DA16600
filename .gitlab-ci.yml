@@ -16,9 +16,9 @@ build_renesas_ra:
     - echo "the project directory is - $CI_PROJECT_DIR"
     - echo "the builb directory is - $CI_BUILDS_DIR"
     - echo "Change directory to the project directory..."
-    - cd $CI_PROJECT_DIR\test\Unity_Test_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2
+    - cd $CI_PROJECT_DIR\Examples\VSCode\Periodic_MQTT_Publisher_FPB_RA6E2
     - echo "Starting CMake build..."
-    - python build.py    
+    - python pipeline_build.py    
   # Keep build files:
   artifacts:
     expire_in: 3 day
