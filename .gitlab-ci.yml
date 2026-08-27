@@ -18,7 +18,7 @@ build_renesas_ra:
     - echo "Change directory to the project directory..."
     - cd $CI_PROJECT_DIR\Examples\VSCode\Periodic_MQTT_Publisher_FPB_RA6E2
     - echo "Starting CMake build..."
-    - python pipeline_build.py    
+    - py pipeline_build.py    
   # Keep build files:
   artifacts:
     expire_in: 3 day
