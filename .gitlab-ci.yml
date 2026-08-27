@@ -2,7 +2,7 @@ stages:
 #  - sync
   - build
 #  - test
-#sync_rs_mqtt_periodic_publisher:
+#sync_rs_mqtt_periodic_publisher: 
 #  stage: sync
 #  image: python:3.11-slim
 #  script:
