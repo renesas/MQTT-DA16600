@@ -23,7 +23,7 @@ build_renesas_ra:
   artifacts:
     expire_in: 3 day
     paths:
-      - test/Unity_Test_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/build/Debug    
+      - Examples/VSCode/Periodic_MQTT_Publisher_FPB_RA6E2/build/Debug    
 #test_fpb_board:
 #  stage: test
 #  tags:
