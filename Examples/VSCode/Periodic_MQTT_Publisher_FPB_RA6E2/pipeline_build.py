@@ -4,7 +4,7 @@ import sys
 
 # Set environment variables
 os.environ["ARM_LLVM_TOOLCHAIN_PATH"] = (
-    r"/opt/ATfE-21.1.1-Linux-AArch64/bin"
+    r"C:/Renesas/RA/e2studio_v2026_05_fsp_v650-rc0/toolchains/llvm_arm/ATfE-21.1.1-Windows-x86_64/bin"
 )
 #os.environ["RASC_EXE_PATH"] = (
 #    r"C:\Renesas\RA\sc_v2026-04.2_fsp_v6.5.0\eclipse\rasc.exe"
