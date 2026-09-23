@@ -31,7 +31,7 @@
  *               network parameters and IP configuration information.
  *  @retval      FSP_SUCCESS                 Network initialized successfully and IP address acquired.
  *  @retval      FSP_ERR_INVALID_POINTER     One or more input pointers are NULL.
- *  @retval      FSP_ERR_IN_USE              Module is already initialized.
+ *  @retval      FSP_ERR_WIFI_INIT_FAILED    WiFi Init Failed.
  *  @retval      eWiFiFailure                General Wi-Fi operation failure.
  *  @retval      eWiFiTimeout                Wi-Fi operation timed out.
  *  @retval      eWiFiNotConnected           Failed to connect to the configured Access Point.
@@ -55,7 +55,7 @@ fsp_err_t rs_mqtt_client_NetworkInit (rs_mqtt_client_ctrl_t * const p_ctrl, rs_m
     WIFINetworkParams_t  *p_net_params = &p_client_cfg->net_params;
     WIFIIPConfiguration_t  *p_ipconfig = &p_client_cfg->ipconfig;
     p_client_ctrl->nwk_status = RS_NWK_NOT_INITIALIZED;
-    p_cfg->nwk_init_phase = RS_NWK_WIFI_NOT_INITIALIZED;
+    p_client_cfg->nwk_init_phase = RS_NWK_WIFI_NOT_INITIALIZED;
 
     /* Open connection to the Wifi Module */
     err = rm_wifi_da16xxx_open(&p_client_ctrl->rs_wifi_da16xxx_cfg);
@@ -63,7 +63,7 @@ fsp_err_t rs_mqtt_client_NetworkInit (rs_mqtt_client_ctrl_t * const p_ctrl, rs_m
     {
         FSP_ERROR_RETURN(FSP_SUCCESS == err, err);
     }
-    p_cfg->nwk_init_phase = RS_NWK_WIFI_TURNED_ON;
+    p_client_cfg->nwk_init_phase = RS_NWK_WIFI_TURNED_ON;
 
     /* Connect to the Access Point */
     wifi_err = WIFI_ConnectAP(p_net_params);
@@ -71,13 +71,14 @@ fsp_err_t rs_mqtt_client_NetworkInit (rs_mqtt_client_ctrl_t * const p_ctrl, rs_m
     {
         FSP_ERROR_RETURN(eWiFiSuccess == wifi_err, (fsp_err_t)wifi_err);
     }
-    p_cfg->nwk_init_phase = RS_NWK_WIFI_CONNECTED;
+    p_client_cfg->nwk_init_phase = RS_NWK_WIFI_CONNECTED;
 
-    if (WIFI_GetIPInfo(p_ipconfig) != eWiFiSuccess)
+    wifi_err = WIFI_GetIPInfo(p_ipconfig);
+    if (eWiFiSuccess != wifi_err)
     {
         FSP_ERROR_RETURN(eWiFiSuccess == wifi_err, (fsp_err_t)wifi_err);
     }
-    p_cfg->nwk_init_phase = RS_NWK_IP_INITIALIZED;
+    p_client_cfg->nwk_init_phase = RS_NWK_IP_INITIALIZED;
     p_client_ctrl->nwk_status = RS_NWK_INITIALIZED;
     return err;
 }
@@ -143,7 +144,7 @@ fsp_err_t rs_mqtt_client_PeriodicConnectionStart(rs_mqtt_client_ctrl_t *const p_
         err = p_timer->p_api->start(p_timer->p_ctrl);
         FSP_ERROR_RETURN(FSP_SUCCESS == err, err);
 
-        p_client_ctrl->timer_status = RS_MQTT_TIMER_INIT_COMPLETE;
+        p_client_ctrl->timer_status = RS_MQTT_TIMER_STARTED;
         /* Set client started flag */
         p_client_cfg->mqtt_init_phase = RS_MQTT_CLIENT_STARTED;
         p_client_ctrl->mqtt_status = RS_MQTT_CLIENT_CONNECTION_ACTIVE;
@@ -175,13 +176,22 @@ fsp_err_t rs_mqtt_client_Subscribe (rs_mqtt_client_ctrl_t * const p_ctrl, mqtt_o
     fsp_err_t err = FSP_SUCCESS;
 
     FSP_ERROR_RETURN(NULL != p_ctrl, FSP_ERR_INVALID_POINTER);
+    FSP_ERROR_RETURN(NULL != p_sub_info, FSP_ERR_INVALID_POINTER);
+    FSP_ERROR_RETURN(subscription_count > 0, FSP_ERR_ASSERTION);
 
     rs_mqtt_client_ctrl_t * p_client_ctrl = (rs_mqtt_client_ctrl_t *) p_ctrl;
 
     mqtt_onchip_da16xxx_instance_ctrl_t * p_mqtt_da16xxx_ctrl = &p_client_ctrl->rs_mqtt_onchip_da16xxx_ctrl;
     mqtt_onchip_da16xxx_sub_info_t *p_subTopics =  (mqtt_onchip_da16xxx_sub_info_t *)p_sub_info;
 
-    err = RM_MQTT_DA16XXX_Subscribe(p_mqtt_da16xxx_ctrl, p_subTopics, subscription_count);
+    if(p_client_ctrl->mqtt_status ==  RS_MQTT_CLIENT_CONNECTION_ACTIVE)
+    {
+        err = RM_MQTT_DA16XXX_Subscribe(p_mqtt_da16xxx_ctrl, p_subTopics, subscription_count);
+    }
+    else
+    {
+        err = FSP_ERR_NOT_ENABLED;
+    }
     FSP_ERROR_RETURN(FSP_SUCCESS == err, err);
 
     return err;

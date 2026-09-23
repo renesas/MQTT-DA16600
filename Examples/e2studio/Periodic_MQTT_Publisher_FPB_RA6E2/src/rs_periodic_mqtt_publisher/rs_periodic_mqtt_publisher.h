@@ -21,15 +21,12 @@
 #include "r_agt.h"
 #include "r_dtc.h"
 #include "rm_at_transport_da16xxx_uart.h"
+
 /* Common macro for FSP header files. There is also a corresponding FSP_FOOTER macro at the end of this file. */
-
-
 /**********************************************************************************************************************
  * Macro definitions
  **********************************************************************************************************************/
-
-
-/** Event in the callback function */
+/** Event in the function return code */
 typedef enum e_rs_mqtt_client_event
 {
     RS_MQTT_CLIENT_OPEN = 1,
@@ -109,8 +106,6 @@ typedef struct st_rs_mqtt_client_ctrl
 } rs_mqtt_client_ctrl_t;
 
 
-
-/** @endcond */
 
 /**********************************************************************************************************************
  * Public Function Prototypes

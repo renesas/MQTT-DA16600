@@ -205,7 +205,10 @@ const uart_cfg_t g_uart9_cfg_preset =
 /* Instance structure to use this module. */
 const uart_instance_t g_uart9_preset =
 { .p_ctrl = &g_uart9_ctrl_preset, .p_cfg = &g_uart9_cfg_preset, .p_api = &g_uart_on_sci };
+
+#ifndef RS_PERIODIC_MQTT_PUBLISH_PRESET_CONFIG_USE
 const char *g_at_transport_da16xxx_uart_cmd_baud = "115200";
+#endif
 
 at_transport_da16xxx_instance_ctrl_t g_at_transport_da16xxx_ctrl_preset;
 const at_transport_da16xxx_extended_cfg_t g_at_transport_da16xxx_cfg_extend_preset =

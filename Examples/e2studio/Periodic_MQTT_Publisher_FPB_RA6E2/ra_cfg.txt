@@ -234,11 +234,6 @@ FSP Configuration
       XCOUT 7 CGC_XCOUT - - - - - - - - IO "Read only" - 
     
   User Events
-    AGT0 INT (AGT interrupt): agt_int_isr
-    SCI9 RXI (Receive data full): sci_uart_rxi_isr
-    SCI9 TXI (Transmit data empty): sci_uart_txi_isr
-    SCI9 TEI (Transmit end): sci_uart_tei_isr
-    SCI9 ERI (Receive error): sci_uart_eri_isr
     
   User Event Links
     
@@ -262,6 +257,43 @@ FSP Configuration
     
   Module "UART Communication Device (rm_comms_uart)"
     Parameter Checking: Default (BSP)
+    
+  Module "Transfer (r_dtc)"
+    Parameter Checking: Default (BSP)
+    Linker section to keep DTC vector table: .fsp_dtc_vector_table
+    
+  Module "DA16XXX Transport on UART (rm_at_transport_da16xxx_uart)"
+    Parameter Checking: Default (BSP)
+    Size of RX buffer for CMD Port: 3000
+    Semaphore maximum timeout: 10000
+    Number of retries for AT commands: 10
+    Module Reset Port: 00
+    Module Reset Pin: 05
+    
+  Module "WiFi Common"
+    Max SSID Length: 32
+    Max BSSID Length: 6
+    Max Passphrase Length: 32
+    
+  Module "WiFi DA16XXX Framework Driver (rm_wifi_da16xxx)"
+    Parameter Checking: Default (BSP)
+    Enable DA16600 Support: Enabled
+    Check Minimum SDK Version: Enabled
+    Number of supported socket instances (not used with on-chip APIs): 1
+    Size of RX buffer for socket (not used with on-chip APIs): 8192
+    Size of TX buffer for CMD Port: 1500
+    Size of RX buffer for CMD Port: 3000
+    Enable SNTP Client: Enabled
+    
+  Module "MQTT Client on DA16XXX (rm_mqtt_onchip_da16xxx)"
+    Parameter Checking: Default (BSP)
+    Size of MQTT RX buffer: 512
+    Size of MQTT TX buffer: 512
+    
+  Module "Timer, Low-Power (r_agt)"
+    Parameter Checking: Default (BSP)
+    Pin Output Support: Disabled
+    Pin Input Support: Disabled
     
   FreeRTOS
     General: Custom FreeRTOSConfig.h: 
@@ -389,6 +421,113 @@ FSP Configuration
     Memory Allocation: Static
     Allocate Secure Context: Enable
     
+    Instance "MQTT Client on DA16XXX (rm_mqtt_onchip_da16xxx)"
+      Certificates: MQTT Certificates Header File: 
+      Use MQTT protocol v3.1.1: Enabled
+      MQTT Receive Maximum Timeout (ms): 10
+      MQTT Transit Maximum Timeout (ms): 10
+      Clean Session: Enabled
+      ALPN: ALPN 1: 
+      ALPN: ALPN 2: 
+      ALPN: ALPN 3: 
+      Keep Alive (s): 60
+      Client Identifier: 
+      Host Name (or IP address): broker.hivemq.com
+      MQTT Port: 1883
+      MQTT User Name: 
+      MQTT Password: 
+      Certificates: Root CA: ROOT_CA
+      Certificates: Client Certificate: CLIENT_CERT
+      Certificates: Private Key: PRIVATE_KEY
+      Last Will Topic: 
+      Last Will Message: 
+      Server Name Indication (SNI): 
+      Last Will QoS: 0
+      TLS Cipher Suites: 
+      Interrupts: Callback: mqtt0_callback
+      
+      Instance "WiFi DA16XXX Framework Driver (rm_wifi_da16xxx)"
+        Country code in ISO 3166-1 alpha-2 standard: US
+        SNTP server IPv4 address: 216.239.35.0
+        SNTP Timezone UTC Offset in Hours: 0
+        
+        Instance "WiFi Common"
+        Instance "DA16XXX Transport on UART (rm_at_transport_da16xxx_uart)"
+          
+          Instance "g_uart9 UART (r_sci_uart)"
+            General: Name: g_uart9
+            General: Channel: 9
+            General: Data Bits: 8bits
+            General: Parity: None
+            General: Stop Bits: 1bit
+            Baud: Baud Rate: 115200
+            Baud: Baud Rate Modulation: Disabled
+            Baud: Max Error (%): 5
+            Flow Control: CTS/RTS Selection: Hardware RTS
+            Flow Control: Software RTS Port: Disabled
+            Flow Control: Software RTS Pin: Disabled
+            Extra: Clock Source: Internal Clock
+            Extra: Start bit detection: Falling Edge
+            Extra: Noise Filter: Disable
+            Extra: Receive FIFO Trigger Level: Max
+            Extra: IrDA: Enable: Disabled
+            Extra: IrDA: RXD Polarity Switching: Normal
+            Extra: IrDA: TXD Polarity Switching: Normal
+            Extra: RS-485: DE Pin: Disable
+            Extra: RS-485: DE Pin Polarity: Active High
+            Extra: RS-485: DE Port Number: Disabled
+            Extra: RS-485: DE Pin Number: Disabled
+            Interrupts: Callback: rm_at_transport_da16xxx_uart_callback
+            Interrupts: Receive Interrupt Priority: Priority 12
+            Interrupts: Transmit Data Empty Interrupt Priority: Priority 12
+            Interrupts: Transmit End Interrupt Priority: Priority 12
+            Interrupts: Error Interrupt Priority: Priority 12
+            
+            Instance "g_transfer0 Transfer (r_dtc) SCI9 TXI (Transmit data empty)"
+              Name: g_transfer0
+              Mode: Normal
+              Transfer Size: 1 Byte
+              Destination Address Mode: Fixed
+              Source Address Mode: Incremented
+              Repeat Area (Unused in Normal Mode): Source
+              Interrupt Frequency: After all transfers have completed
+              Number of Transfers: 0
+              Number of Blocks (Valid only in Block Mode): 0
+              Number of Transfer Descriptors: 1
+              Activation Source: SCI9 TXI (Transmit data empty)
+              
+            Instance "g_transfer1 Transfer (r_dtc) SCI9 RXI (Receive data full)"
+              Name: g_transfer1
+              Mode: Normal
+              Transfer Size: 1 Byte
+              Destination Address Mode: Incremented
+              Source Address Mode: Fixed
+              Repeat Area (Unused in Normal Mode): Destination
+              Interrupt Frequency: After all transfers have completed
+              Number of Transfers: 0
+              Number of Blocks (Valid only in Block Mode): 0
+              Number of Transfer Descriptors: 1
+              Activation Source: SCI9 RXI (Receive data full)
+              
+    Instance "g_timer0 Timer, Low-Power (r_agt)"
+      General: Name: g_timer0
+      General: Counter Bit Width: AGTW 32-bit
+      General: Channel: 0
+      General: Mode: Periodic
+      General: Period: 10
+      General: Period Unit: Seconds
+      Output: Duty Cycle Percent (only applicable in PWM mode): 50
+      General: Count Source: PCLKB
+      Output: AGTOA Output: Disabled
+      Output: AGTOB Output: Disabled
+      Output: AGTO Output: Disabled
+      Input: Measurement Mode: Measure Disabled
+      Input: Input Filter: No Filter
+      Input: Enable Pin: Enable Pin Not Used
+      Input: Trigger Edge: Trigger Edge Rising
+      Interrupts: Callback: g_periodic_timer_callback
+      Interrupts: Underflow Interrupt Priority: Priority 12
+      
   Object "g_periodic_event_group Event Group"
     Symbol: g_periodic_event_group
     Memory Allocation: Static
