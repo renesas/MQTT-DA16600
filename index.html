@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.12.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README</title>
+  <style>
+
+html {
+color: #1a1a1a;
+color: light-dark(#1a1a1a, #fdfdfd);
+background-color: #fdfdfd;
+background-color: light-dark(#fdfdfd, #1a1a1a);
+color-scheme: light dark;
+}
+body {
+margin: 0 auto;
+max-width: none;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+color-scheme: light only;
+}
+html, body, pre, code {
+background-color: transparent;
+}
+body, a, a:visited, blockquote {
+color: black;
+}
+pre, code {
+padding: 0;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a, a:visited {
+color: inherit;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid;
+border-color: #e6e6e6;
+border-color: light-dark(#e6e6e6, #4c4c4c);
+color: #606060;
+color: light-dark(#606060, #b6b6b6);
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid currentColor;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid currentColor;
+border-bottom: 1px solid currentColor;
+}
+th {
+border-top: 1px solid currentColor;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<h1 id="rs-periodic-mqtt-publisher">RS Periodic MQTT Publisher</h1>
+<p>The Periodic MQTT Publisher Project showcases communication between a
+Renesas RA MCU and the DA16600 Wi-Fi module. The system connects to a
+configured Wi-Fi network and establishes access to the internet. It then
+creates a connection to an MQTT broker using the MQTT protocol. The
+application periodically publishes messages to predefined MQTT topics.
+Published data is received and displayed on the MQTT broker for
+verification. The project demonstrates reliable device-to-cloud
+communication. It serves as a reference design for IoT connectivity
+solutions.</p>
+<h1 id="project-directory-structure">Project Directory Structure</h1>
+<pre><code>.
+├── README.md
+│   └── High-level overview of the project directory structure
+│
+├── docs
+│   └── RS_Periodic_MQTT_Publisher.md
+│      └── Documentation for the RS Periodic MQTT Publisher
+│        
+├── Examples
+│   │── e2studio
+│   │   │   
+│   │   └── Periodic_MQTT_Publisher_FPB_RA6E2
+│   │       └── e²studio project for FPB-RA6E2 demonstrating Periodic MQTT Publisher
+│   └── VSCode
+│       │   
+│       └── Periodic_MQTT_Publisher_FPB_RA6E2
+│           └── VSCode project for FPB-RA6E2 demonstrating Periodic MQTT Publisher
+├── src
+│   │── config   
+│   │    └── Module configuration generation and checking functions
+│   │       
+│   │   
+│   │── rs_periodic_mqtt_publisher.c
+│   │        └── Periodic MQTT Publisher module main source code
+│   │   
+│   └── rs_periodic_mqtt_publisher.h
+│           └── Periodic MQTT Publisher module header file
+│  
+├── srec
+│   └── Demonstration application executable in S-RECORD format   
+│  
+</code></pre>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#example-projects">Example projects</a></li>
+<li><a href="#application-entry-points">Application entry
+points</a></li>
+<li><a href="#periodic-mqtt-publisher-module">Periodic MQTT Publisher
+module</a></li>
+<li><a href="#configuration-sources">Configuration sources</a></li>
+<li><a href="#demo-sources">Demo sources</a></li>
+<li><a href="#console-support">Console support</a></li>
+<li><a href="#unity-tests">Unity tests</a></li>
+<li><a href="#prebuilt-firmware">Prebuilt firmware</a></li>
+</ul>
+<h2 id="documentation">Documentation</h2>
+<ul>
+<li><a href="docs/RS_Periodic_MQTT_Publisher.md">RS Periodic MQTT
+Publisher User Manual</a> — architecture, configuration, usage, APIs,
+validation, error handling, and functional flow.</li>
+</ul>
+<h2 id="example-projects">Example projects</h2>
+<ul>
+<li><a href="Examples/e2studio/Periodic_MQTT_Publisher_FPB_RA6E2/">e²
+studio project</a> — complete FPB-RA6E2 project for Renesas e²
+studio.</li>
+<li><a href="Examples/VSCode/Periodic_MQTT_Publisher_FPB_RA6E2/">Visual
+Studio Code project</a> — complete FPB-RA6E2 project for VS Code.</li>
+</ul>
+<h2 id="application-entry-points">Application entry points</h2>
+<ul>
+<li><a href="src/main_thread_entry.c"><code>main_thread_entry.c</code></a> —
+FreeRTOS main-thread entry point.</li>
+</ul>
+<h2 id="periodic-mqtt-publisher-module">Periodic MQTT Publisher
+module</h2>
+<ul>
+<li><a href="src/rs_periodic_mqtt_publisher/rs_periodic_mqtt_publisher.c"><code>rs_periodic_mqtt_publisher.c</code></a>
+— module implementation.</li>
+<li><a href="src/rs_periodic_mqtt_publisher/rs_periodic_mqtt_publisher.h"><code>rs_periodic_mqtt_publisher.h</code></a>
+— public API, types, and declarations.</li>
+</ul>
+<h2 id="configuration-sources">Configuration sources</h2>
+<ul>
+<li><a href="src/rs_periodic_mqtt_publisher/config/rs_periodic_mqtt_publisher_config.c"><code>rs_periodic_mqtt_publisher_config.c</code></a>
+— configuration generation and validation.</li>
+<li><a href="src/rs_periodic_mqtt_publisher/config/rs_periodic_mqtt_publisher_data.h"><code>rs_periodic_mqtt_publisher_data.h</code></a>
+— common configuration data declarations.</li>
+<li><a href="src/rs_periodic_mqtt_publisher/config/rs_periodic_mqtt_publisher_data_fpb_ra6e2.c"><code>rs_periodic_mqtt_publisher_data_fpb_ra6e2.c</code></a>
+— FPB-RA6E2 configuration data.</li>
+<li><a href="src/rs_periodic_mqtt_publisher/config/rs_periodic_mqtt_publisher_data_fpb_ra6e2.h"><code>rs_periodic_mqtt_publisher_data_fpb_ra6e2.h</code></a>
+— FPB-RA6E2 configuration declarations.</li>
+</ul>
+<h2 id="demo-sources">Demo sources</h2>
+<ul>
+<li><a href="src/rs_periodic_mqtt_publisher/demo/rs_periodic_mqtt_publisher_demo.c"><code>rs_periodic_mqtt_publisher_demo.c</code></a>
+— demonstration application and periodic publishing flow.</li>
+<li><a href="src/rs_periodic_mqtt_publisher/demo/user.h"><code>user.h</code></a>
+— user-configurable settings.</li>
+<li><a href="src/rs_periodic_mqtt_publisher/demo/mqtt_cert.h"><code>mqtt_cert.h</code></a>
+— MQTT certificate configuration.</li>
+</ul>
+<h2 id="console-support">Console support</h2>
+<ul>
+<li><a href="src/console/r_byteq.c"><code>r_byteq.c</code></a> and <a href="src/console/r_byteq.h"><code>r_byteq.h</code></a> — byte-queue
+implementation and interface.</li>
+<li><a href="src/console/syscalls_picolib_stdio_to_uart.c"><code>syscalls_picolib_stdio_to_uart.c</code></a>
+— redirects standard I/O to UART.</li>
+</ul>
+<h2 id="unity-tests">Unity tests</h2>
+<ul>
+<li><a href="test/unity/Unity_Test_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/">Unity
+test project</a></li>
+<li><a href="test/unity/Unity_Test_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/UNITY_TEST_README.md">Unity
+test instructions</a></li>
+</ul>
+<h2 id="prebuilt-firmware">Prebuilt firmware</h2>
+<ul>
+<li><a href="srec/MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2.srec">FPB-RA6E2
+S-record image</a></li>
+</ul>
+</body>
+</html>
