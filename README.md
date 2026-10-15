@@ -8,18 +8,14 @@ The system connects to a configured Wi-Fi network and establishes access to the 
 
 ```
 .
-├── README.md
+├── README.md/index.html
 │   └── High-level overview of the project directory structure
 │
 ├── docs
-│   └── RS_Periodic_MQTT_Publisher.md
+│   └── RS_Periodic_MQTT_Publisher.md/RS_Periodic_MQTT_Publisher.html
 │      └── Documentation for the RS Periodic MQTT Publisher
 │        
 ├── Examples
-│   │── e2studio
-│   │   │   
-│   │   └── Periodic_MQTT_Publisher_FPB_RA6E2
-│   │       └── e²studio project for FPB-RA6E2 demonstrating Periodic MQTT Publisher
 │   └── VSCode
 │       │   
 │       └── Periodic_MQTT_Publisher_FPB_RA6E2
@@ -49,7 +45,6 @@ The system connects to a configured Wi-Fi network and establishes access to the 
 - [Configuration sources](#configuration-sources)
 - [Demo sources](#demo-sources)
 - [Console support](#console-support)
-- [Unity tests](#unity-tests)
 - [Prebuilt firmware](#prebuilt-firmware)
 
 ## Documentation
@@ -58,7 +53,6 @@ The system connects to a configured Wi-Fi network and establishes access to the 
 
 ## Example projects
 
-- [e² studio project](Examples/e2studio/Periodic_MQTT_Publisher_FPB_RA6E2/) — complete FPB-RA6E2 project for Renesas e² studio.
 - [Visual Studio Code project](Examples/VSCode/Periodic_MQTT_Publisher_FPB_RA6E2/) — complete FPB-RA6E2 project for VS Code.
 
 ## Application entry points
@@ -87,11 +81,6 @@ The system connects to a configured Wi-Fi network and establishes access to the 
 
 - [`r_byteq.c`](src/console/r_byteq.c) and [`r_byteq.h`](src/console/r_byteq.h) — byte-queue implementation and interface.
 - [`syscalls_picolib_stdio_to_uart.c`](src/console/syscalls_picolib_stdio_to_uart.c) — redirects standard I/O to UART.
-
-## Unity tests
-
-- [Unity test project](test/unity/Unity_Test_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/)
-- [Unity test instructions](test/unity/Unity_Test_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/UNITY_TEST_README.md)
 
 ## Prebuilt firmware
 

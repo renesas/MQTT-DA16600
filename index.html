@@ -191,18 +191,14 @@ communication. It serves as a reference design for IoT connectivity
 solutions.</p>
 <h1 id="project-directory-structure">Project Directory Structure</h1>
 <pre><code>.
-├── README.md
+├── README.md/index.html
 │   └── High-level overview of the project directory structure
 │
 ├── docs
-│   └── RS_Periodic_MQTT_Publisher.md
+│   └── RS_Periodic_MQTT_Publisher.md/RS_Periodic_MQTT_Publisher.html
 │      └── Documentation for the RS Periodic MQTT Publisher
 │        
 ├── Examples
-│   │── e2studio
-│   │   │   
-│   │   └── Periodic_MQTT_Publisher_FPB_RA6E2
-│   │       └── e²studio project for FPB-RA6E2 demonstrating Periodic MQTT Publisher
 │   └── VSCode
 │       │   
 │       └── Periodic_MQTT_Publisher_FPB_RA6E2
@@ -233,20 +229,16 @@ module</a></li>
 <li><a href="#configuration-sources">Configuration sources</a></li>
 <li><a href="#demo-sources">Demo sources</a></li>
 <li><a href="#console-support">Console support</a></li>
-<li><a href="#unity-tests">Unity tests</a></li>
 <li><a href="#prebuilt-firmware">Prebuilt firmware</a></li>
 </ul>
 <h2 id="documentation">Documentation</h2>
 <ul>
-<li><a href="docs/RS_Periodic_MQTT_Publisher.md">RS Periodic MQTT
+<li><a href="docs/RS_Periodic_MQTT_Publisher.html">RS Periodic MQTT
 Publisher User Manual</a> — architecture, configuration, usage, APIs,
 validation, error handling, and functional flow.</li>
 </ul>
 <h2 id="example-projects">Example projects</h2>
 <ul>
-<li><a href="Examples/e2studio/Periodic_MQTT_Publisher_FPB_RA6E2/">e²
-studio project</a> — complete FPB-RA6E2 project for Renesas e²
-studio.</li>
 <li><a href="Examples/VSCode/Periodic_MQTT_Publisher_FPB_RA6E2/">Visual
 Studio Code project</a> — complete FPB-RA6E2 project for VS Code.</li>
 </ul>
@@ -289,13 +281,6 @@ module</h2>
 implementation and interface.</li>
 <li><a href="src/console/syscalls_picolib_stdio_to_uart.c"><code>syscalls_picolib_stdio_to_uart.c</code></a>
 — redirects standard I/O to UART.</li>
-</ul>
-<h2 id="unity-tests">Unity tests</h2>
-<ul>
-<li><a href="test/unity/Unity_Test_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/">Unity
-test project</a></li>
-<li><a href="test/unity/Unity_Test_MQTT_Periodic_Publisher_with_DA16600_On_FPB_RA6E2/UNITY_TEST_README.md">Unity
-test instructions</a></li>
 </ul>
 <h2 id="prebuilt-firmware">Prebuilt firmware</h2>
 <ul>
