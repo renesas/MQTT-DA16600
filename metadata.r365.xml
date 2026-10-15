@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pesMetadata>
+  <releaseMetadata>
+    <pesName>RS Periodic MQTT Publisher</pesName>
+    <version>1.0.0</version>
+    <releaseDate>TBD</releaseDate>
+    <releaseType>Draft</releaseType>
+    <metadataSchemaVersion>1.0</metadataSchemaVersion>
+  </releaseMetadata>
+  <discoveryMetadata>
+    <targetProducts>
+      <productFamily>RA</productFamily>
+      <productSeries>RA6</productSeries>
+      <supportedDevices>
+        <device>
+          <family>RA</family>
+          <series>RA6</series>
+          <group>RA6E2</group>
+        </device>
+      </supportedDevices>
+    </targetProducts>
+    <targetMarkets>
+      <market>Industrial IoT</market>
+      <market>Smart Home and Building Automation</market>
+      <market>Smart Cities</market>
+      <market>Wearables</market>
+      <market>Agriculture</market>
+    </targetMarkets>
+    <endApplications>
+      <application>Remote Monitoring</application>
+      <application>Sensor Gateway</application>
+      <application>Predictive Maintenance</application>
+      <application>Device Telemetry</application>
+      <application>Environmental Monitoring</application>
+      <application>Remote Command and Control</application>
+    </endApplications>
+    <functionalTags>
+      <tag>MQTT Client</tag>
+      <tag>MQTT Publisher</tag>
+      <tag>MQTT Subscriber</tag>
+      <tag>Periodic Telemetry</tag>
+      <tag>Device-to-Cloud</tag>
+      <tag>Wi-Fi Networking</tag>
+      <tag>DA16600</tag>
+      <tag>RA MCU</tag>
+      <tag>FreeRTOS</tag>
+    </functionalTags>
+    <hardwareInterfaces>
+      <requiredPeripherals>
+        <peripheral>AGT Timer</peripheral>
+        <peripheral>SCI UART</peripheral>
+        <peripheral>DTC</peripheral>
+        <peripheral>FreeRTOS Event Groups</peripheral>
+      </requiredPeripherals>
+      <inputSignals>
+        <signal>UART RX</signal>
+      </inputSignals>
+      <outputSignals>
+        <signal>UART TX</signal>
+      </outputSignals>
+      <connectedDevices>
+        <device>US159-DA16600EVZ Wi-Fi Pmod</device>
+        <device>MQTT Broker</device>
+      </connectedDevices>
+    </hardwareInterfaces>
+  </discoveryMetadata>
+  <descriptiveMetadata>
+    <anatomicalMetadata>
+      <identity>
+        <name>RS Periodic MQTT Publisher</name>
+        <shortName>rs_periodic_mqtt_publisher</shortName>
+        <category>Connectivity</category>
+        <pesType>Reference Design</pesType>
+      </identity>
+      <description>
+        <summary>Timer-driven MQTT telemetry over DA16600 Wi-Fi</summary>
+      </description>
+      <classification>
+        <domain>Connectivity, IoT</domain>
+        <technology>MQTT, Wi-Fi, TCP/IP, FSP</technology>
+        <subCategory>Device-to-Cloud Telemetry</subCategory>
+      </classification>
+      <supportedBoards>
+        <board>FPB-RA6E2</board>
+      </supportedBoards>
+      <dependencies>
+        <dependency>FSP 6.5.0 or later</dependency>
+        <dependency>rm_mqtt_onchip_da16xxx</dependency>
+        <dependency>rm_wifi_da16xxx</dependency>
+        <dependency>rm_at_transport_da16xxx_uart</dependency>
+        <dependency>r_agt</dependency>
+        <dependency>r_sci_uart</dependency>
+        <dependency>r_dtc</dependency>
+        <dependency>rm_freertos_port</dependency>
+      </dependencies>
+      <hardwareRequirements>
+        <requirement>FPB-RA6E2</requirement>
+        <requirement>US159-DA16600EVZ Wi-Fi Pmod</requirement>
+        <requirement>Wi-Fi access point</requirement>
+        <requirement>USB debug connection</requirement>
+      </hardwareRequirements>
+      <artifacts>
+        <artifact>src/rs_periodic_mqtt_publisher/rs_periodic_mqtt_publisher.c</artifact>
+        <artifact>src/rs_periodic_mqtt_publisher/rs_periodic_mqtt_publisher.h</artifact>
+        <artifact>FPB-RA6E2 preset configuration</artifact>
+        <artifact>Examples/VSCode/Periodic_MQTT_Publisher_FPB_RA6E2/src/rs_periodic_mqtt_publisher/config/rs_periodic_mqtt_publisher_data_fpb_ra6e2.c</artifact>
+        <artifact>Examples/VSCode/Periodic_MQTT_Publisher_FPB_RA6E2/src/rs_periodic_mqtt_publisher/config/rs_periodic_mqtt_publisher_data_fpb_ra6e2.h</artifact>
+        <artifact>Examples/VSCode/Periodic_MQTT_Publisher_FPB_RA6E2/configuration.xml</artifact>
+      </artifacts>
+      <documentation>
+        <document>README.md</document>
+        <document>docs/RS_Periodic_MQTT_Publisher.md</document>
+      </documentation>
+    </anatomicalMetadata>
+    <behavioralMetadata>
+      <capabilities>
+        <capability>Wi-Fi network initialization</capability>
+        <capability>MQTT broker connection</capability>
+        <capability>Timer-driven periodic publish</capability>
+        <capability>Topic publish</capability>
+        <capability>Topic subscribe</capability>
+        <capability>Subscribed-message receive</capability>
+        <capability>Graceful stop</capability>
+        <capability>Configuration generation and validation</capability>
+      </capabilities>
+      <publicInterfaces>
+        <interface>rs_mqtt_client_NetworkInit()</interface>
+        <interface>rs_mqtt_client_PeriodicConnectionStart()</interface>
+        <interface>rs_mqtt_client_Subscribe()</interface>
+        <interface>rs_mqtt_client_DataSend()</interface>
+        <interface>rs_mqtt_client_DataRecv()</interface>
+        <interface>rs_mqtt_client_PeriodicConnectionStop()</interface>
+      </publicInterfaces>
+      <configuration>
+        <parameter>Wi-Fi SSID</parameter>
+        <parameter>Wi-Fi password</parameter>
+        <parameter>Broker host</parameter>
+        <parameter>Broker port</parameter>
+        <parameter>MQTT topic</parameter>
+        <parameter>QoS</parameter>
+        <parameter>Keep alive</parameter>
+        <parameter>Publish interval</parameter>
+        <parameter>RX buffer size</parameter>
+        <parameter>TX buffer size</parameter>
+        <parameter>Preset configuration selection</parameter>
+      </configuration>
+      <executionModel>
+        <initialization>Generate configuration; initialize Wi-Fi; connect broker; start AGT timer</initialization>
+        <runtimeBehavior>Wait on FreeRTOS timer event; create payload; publish topic; repeat</runtimeBehavior>
+      </executionModel>
+      <useCases>
+        <useCase>Industrial telemetry</useCase>
+        <useCase>Building automation</useCase>
+        <useCase>Agriculture monitoring</useCase>
+        <useCase>Remote device monitoring</useCase>
+        <useCase>Sensor gateway</useCase>
+      </useCases>
+    </behavioralMetadata>
+    <performanceMetadata>
+      <performanceCharacteristics>
+        <latency>Not characterized</latency>
+        <throughput>One publish per configured timer event</throughput>
+        <memoryUsage>Not characterized</memoryUsage>
+        <operatingRange>2.4 GHz Wi-Fi; configurable publish interval</operatingRange>
+        <customMetric name="referencePublishInterval">10 seconds</customMetric>
+      </performanceCharacteristics>
+      <resources>
+        <resource>AGT timer channel</resource>
+        <resource>SCI UART channel 9</resource>
+        <resource>DTC RX channel</resource>
+        <resource>DTC TX channel</resource>
+        <resource>FreeRTOS event group</resource>
+        <resource>DA16600 MQTT client</resource>
+      </resources>
+      <validation>
+        <validationCase>
+          <validatedBoard>FPB-RA6E2</validatedBoard>
+          <validatedDevice>RA6E2</validatedDevice>
+          <validatedConfiguration>DA16600 Pmod; FSP 6.5.0; MQTT v3.1.1; AGT periodic timer; UART9 at 115200 baud</validatedConfiguration>
+          <testResult>Documented expected console flow; formal validation result not stated</testResult>
+        </validationCase>
+      </validation>
+    </performanceMetadata>
+  </descriptiveMetadata>
+</pesMetadata>
