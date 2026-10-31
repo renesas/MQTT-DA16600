@@ -1,4 +1,4 @@
-# RS Periodic MQTT Publisher 
+# Periodic MQTT Publisher 
 
 ## Table of Contents
 
@@ -20,7 +20,7 @@
 
 # 1. Introduction
 
-The RS Periodic MQTT Publisher example demonstrates how a Renesas RA MCU interfaces with the DA16600 Wi‑Fi module to establish wireless network connectivity, connects to an MQTT broker, and periodically publishes application data to a configured MQTT topic.
+The Periodic MQTT Publisher example demonstrates how a Renesas RA MCU interfaces with the DA16600 Wi‑Fi module to establish wireless network connectivity, connects to an MQTT broker, and periodically publishes application data to a configured MQTT topic.
 
 The MQTT client connects to a configured MQTT broker, which can be either a public broker for evaluation purposes or a private broker deployed in a production environment.
 
